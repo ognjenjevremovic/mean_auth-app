@@ -4,3 +4,4 @@ exports.login = (req, res, next) => {
     res
         .send('This is the login route');
 };
+//# sourceMappingURL=login.js.map

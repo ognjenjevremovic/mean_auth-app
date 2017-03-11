@@ -7,3 +7,4 @@ class User {
     }
 }
 exports.User = User;
+//# sourceMappingURL=index.js.map

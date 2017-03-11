@@ -6,3 +6,4 @@ const authenticate_1 = require("./authenticate");
 exports.router = express.Router();
 exports.router.post('/register', register_1.register);
 exports.router.post('/authenticate', authenticate_1.authenticate);
+//# sourceMappingURL=index.js.map

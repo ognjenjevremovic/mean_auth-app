@@ -15,3 +15,4 @@ exports.register = (req, res, next) => {
             .send(document);
     });
 };
+//# sourceMappingURL=register.js.map

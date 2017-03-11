@@ -6,7 +6,7 @@
         "suppressImplicitAnyIndexErrors": true,
         "removeComments": true,
         "pretty": true,
-        "sourceMap": false,
+        "sourceMap": true,
         "lib": [
             "es5",
             "es6",

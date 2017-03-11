@@ -34,3 +34,4 @@ app.listen(config_1.PORT, () => {
     if (config_1.NODE_ENV === 'dev' || config_1.NODE_ENV === 'development')
         opn(`http://localhost:${config_1.PORT}`);
 });
+//# sourceMappingURL=server.js.map
