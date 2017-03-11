@@ -3,9 +3,7 @@ const express   = require('express');
 const morgan    = require('morgan');
 const mongoose  = require('mongoose');
 const dotenv    = require('dotenv');
-const cors      = require('cors');
 const path      = require('path');
-const opn       = require('opn');
 const bodyParser = require('body-parser');
 
 //  Initialize the express application
@@ -16,16 +14,41 @@ dotenv.config();
 
 //  Extract the environment variables
 const { 
-    DB,         //  database connection
+    DB_CONNECT, //  database connection
     SECRET,     //  json web token secret
     NODE_ENV,   //  dev/prod environment
     PORT        //  application port
 } = process.env;
 
 
+//  Development packages
+let opn;
+let cors;
+if(NODE_ENV === 'dev' || NODE_ENV === 'development') {
+    opn   = require('opn');
+    cors  = require('cors');  
+
+    //  CORS requests
+    app.use(cors());  
+}
+
+
+//  Database connection
+mongoose.connect(DB_CONNECT);
+mongoose.connection.on('connect', () => {
+    console.log(`
+        Successfuly connected to the database!
+    `);
+});
+mongoose.connection.on('error', (err) => {
+    console.log(`
+        Error connecting to the database:
+        ${err.message}
+    `);
+});
+
 //  Middlewares
 app.use(morgan(NODE_ENV));
-app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -57,5 +80,7 @@ app.listen(PORT, () => {
         go to:
             http://localhost:${PORT}
     `);
-    opn('http://localhost:${PORT}');
+
+    //  If in development mode, navigate to the webpage
+    if(NODE_ENV === 'dev' || NODE_ENV === 'development') opn(`http://localhost:${PORT}`);
 });
