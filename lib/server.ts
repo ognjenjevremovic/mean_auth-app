@@ -4,24 +4,26 @@ import * as morgan from 'morgan';
 import * as path from 'path';
 import * as bodyParser from 'body-parser';
 
-//  Configs
+//  Environment variables
 import { NODE_ENV, PORT } from './config';
 
 //  Database connection
 import './database';
 
 //  Development packages
-import * as opn from 'opn';
-import * as cors from 'cors';
+const opn   = (NODE_ENV === 'development' || NODE_ENV === 'dev') ? require('opn') : null;
+const cors  = (NODE_ENV === 'development' || NODE_ENV === 'dev') ? require('cors') : null;
 
 //  Initialize the express application
 const app: express.Application = express();
 
-//  Modules
-import { User } from './modules';
-const userModule = new User();
 
-//  User CORS if in development
+//  Routes
+import { User } from './modules';
+const { userRoutes, IUser } = new User();
+
+
+//  Enable CORS if in development
 if(NODE_ENV === 'dev' || NODE_ENV === 'development') app.use(cors());
 
 
@@ -29,14 +31,11 @@ if(NODE_ENV === 'dev' || NODE_ENV === 'development') app.use(cors());
 app.use(morgan(NODE_ENV));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-//  Static server
+//  Static file server
 app.use('static', express.static(path.join(__dirname, 'client')));
 
-
 //  Register the routes
-app.use('/user', userModule.userRoutes);
-
+app.use('/user', userRoutes);
 
 //  Demo index route
 app.get('/', (req: express.Request, res: express.Response, next: express.NextFunction) => {

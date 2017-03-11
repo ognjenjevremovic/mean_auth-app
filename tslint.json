@@ -31,7 +31,7 @@
             true,
             "spaces"
         ],
-        "no-require-imports": true,
+        "no-require-imports": false,
         "prefer-const": true,
         "trailing-comma": [
             true,
