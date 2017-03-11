@@ -1,0 +1,29 @@
+{
+  "name": "mean_auth-app",
+  "version": "0.0.1",
+  "description": "MEAN 2 (MongoDB, Express, Angular 2, NodeJS) application, with CRUD and User authentication",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "nodemon"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:ognjenjevremovic/mean_auth-app.git"
+  },
+  "author": "Ognjen Jevremovic",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ognjenjevremovic/mean_auth-app/issues"
+  },
+  "homepage": "https://github.com/ognjenjevremovic/mean_auth-app#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.17.1",
+    "dotenv": "^4.0.0",
+    "express": "^4.15.2",
+    "mongoose": "^4.8.6",
+    "morgan": "^1.8.1",
+    "passport": "^0.3.2",
+    "passport-jwt": "^2.2.1"
+  }
+}
