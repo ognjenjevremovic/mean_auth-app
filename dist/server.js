@@ -2,48 +2,35 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
 const morgan = require("morgan");
-const mongoose = require("mongoose");
-const dotenv = require("dotenv");
 const path = require("path");
 const bodyParser = require("body-parser");
+const config_1 = require("./config");
+require("./database");
 const opn = require("opn");
 const cors = require("cors");
 const app = express();
-dotenv.config();
-const { DB_CONNECT, SECRET, NODE_ENV, PORT } = process.env;
-if (NODE_ENV === 'dev' || NODE_ENV === 'development')
+const modules_1 = require("./modules");
+const userModule = new modules_1.User();
+if (config_1.NODE_ENV === 'dev' || config_1.NODE_ENV === 'development')
     app.use(cors());
-mongoose.connect(DB_CONNECT);
-mongoose.connection.on('connect', () => {
-    console.log(`
-        Successfuly connected to the database!
-    `);
-});
-mongoose.connection.on('error', (err) => {
-    console.log(`
-        Error connecting to the database:
-        ${err.message}
-    `);
-});
-app.use(morgan(NODE_ENV));
+app.use(morgan(config_1.NODE_ENV));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('static', express.static(path.join(__dirname, 'client')));
-const routes_1 = require("./routes");
-app.use('/user', routes_1.userRoutes);
+app.use('/user', userModule.userRoutes);
 app.get('/', (req, res, next) => {
     res
         .send('Index route');
 });
-app.listen(PORT, () => {
+app.listen(config_1.PORT, () => {
     console.log(`
         Starting. . .
-        Server listening on the port ${PORT}
+        Server listening on the port ${config_1.PORT}
 
         If you're not redirected automaticly,
         go to:
-            http://localhost:${PORT}
+            http://localhost:${config_1.PORT}
     `);
-    if (NODE_ENV === 'dev' || NODE_ENV === 'development')
-        opn(`http://localhost:${PORT}`);
+    if (config_1.NODE_ENV === 'dev' || config_1.NODE_ENV === 'development')
+        opn(`http://localhost:${config_1.PORT}`);
 });

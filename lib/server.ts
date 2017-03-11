@@ -1,10 +1,14 @@
 //  Dependancies
 import * as express from 'express';
 import * as morgan from 'morgan';
-import * as mongoose from 'mongoose';
-import * as dotenv from 'dotenv';
 import * as path from 'path';
 import * as bodyParser from 'body-parser';
+
+//  Configs
+import { NODE_ENV, PORT } from './config';
+
+//  Database connection
+import './database';
 
 //  Development packages
 import * as opn from 'opn';
@@ -13,34 +17,13 @@ import * as cors from 'cors';
 //  Initialize the express application
 const app: express.Application = express();
 
-//  Configure the environment variables
-dotenv.config();
+//  Modules
+import { User } from './modules';
+const userModule = new User();
 
-//  Extract the environment variables
-const {
-    DB_CONNECT, //  database connection
-    SECRET,     //  json web token secret
-    NODE_ENV,   //  dev/prod environment
-    PORT        //  application port
-} = process.env;
-
-
+//  User CORS if in development
 if(NODE_ENV === 'dev' || NODE_ENV === 'development') app.use(cors());
 
-
-//  Database connection
-mongoose.connect(DB_CONNECT);
-mongoose.connection.on('connect', () => {
-    console.log(`
-        Successfuly connected to the database!
-    `);
-});
-mongoose.connection.on('error', (err: mongoose.Error) => {
-    console.log(`
-        Error connecting to the database:
-        ${err.message}
-    `);
-});
 
 //  Middlewares
 app.use(morgan(NODE_ENV));
@@ -51,11 +34,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('static', express.static(path.join(__dirname, 'client')));
 
 
-//  Require the routes
-import { userRoutes } from './routes';
-
 //  Register the routes
-app.use('/user', userRoutes);
+app.use('/user', userModule.userRoutes);
 
 
 //  Demo index route
