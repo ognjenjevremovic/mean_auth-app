@@ -1,19 +1,23 @@
 //  Dependancies
-const express   = require('express');
-const morgan    = require('morgan');
-const mongoose  = require('mongoose');
-const dotenv    = require('dotenv');
-const path      = require('path');
-const bodyParser = require('body-parser');
+import * as express from 'express';
+import * as morgan from 'morgan';
+import * as mongoose from 'mongoose';
+import * as dotenv from 'dotenv';
+import * as path from 'path';
+import * as bodyParser from 'body-parser';
+
+//  Development packages
+import * as opn from 'opn';
+import * as cors from 'cors';
 
 //  Initialize the express application
-const app = express();
+const app: express.Application = express();
 
 //  Configure the environment variables
 dotenv.config();
 
 //  Extract the environment variables
-const { 
+const {
     DB_CONNECT, //  database connection
     SECRET,     //  json web token secret
     NODE_ENV,   //  dev/prod environment
@@ -21,16 +25,7 @@ const {
 } = process.env;
 
 
-//  Development packages
-let opn;
-let cors;
-if(NODE_ENV === 'dev' || NODE_ENV === 'development') {
-    opn   = require('opn');
-    cors  = require('cors');  
-
-    //  CORS requests
-    app.use(cors());  
-}
+if(NODE_ENV === 'dev' || NODE_ENV === 'development') app.use(cors());
 
 
 //  Database connection
@@ -40,7 +35,7 @@ mongoose.connection.on('connect', () => {
         Successfuly connected to the database!
     `);
 });
-mongoose.connection.on('error', (err) => {
+mongoose.connection.on('error', (err: mongoose.Error) => {
     console.log(`
         Error connecting to the database:
         ${err.message}
@@ -57,17 +52,17 @@ app.use('static', express.static(path.join(__dirname, 'client')));
 
 
 //  Require the routes
-const { userRoutes } = require('./routes');
+import { userRoutes } from './routes';
 
 //  Register the routes
 app.use('/user', userRoutes);
 
 
 //  Demo index route
-app.get('/', (req, res, next) => {
+app.get('/', (req: express.Request, res: express.Response, next: express.NextFunction) => {
     res
         .send('Index route');
-})
+});
 
 
 //  Open the socket

@@ -2,7 +2,7 @@
   "name": "mean_auth-app",
   "version": "0.0.1",
   "description": "MEAN 2 (MongoDB, Express, Angular 2, NodeJS) application, with CRUD and User authentication",
-  "main": "src/server.js",
+  "main": "dist/server.js",
   "scripts": {
     "start": "nodemon"
   },
@@ -28,6 +28,14 @@
     "passport-jwt": "^2.2.1"
   },
   "devDependencies": {
+    "@types/body-parser": "^1.16.0",
+    "@types/cors": "^2.8.1",
+    "@types/dotenv": "^2.0.20",
+    "@types/express": "^4.0.35",
+    "@types/mongoose": "^4.7.8",
+    "@types/morgan": "^1.7.32",
+    "@types/node": "^7.0.8",
+    "@types/opn": "^3.0.28",
     "cors": "^2.8.1",
     "opn": "^4.0.2"
   }

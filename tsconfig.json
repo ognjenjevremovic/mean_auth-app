@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es6",
+        "noImplicitAny": true,
+        "suppressImplicitAnyIndexErrors": true,
+        "removeComments": true,
+        "pretty": true,
+        "sourceMap": false,
+        "lib": [
+            "es5",
+            "es6",
+            "es7"
+        ],
+        "outDir": "./dist"
+    },
+    "exclude": [
+        "node_modules/",
+        "src/client"
+    ]
+}
