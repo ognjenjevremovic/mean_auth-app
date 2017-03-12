@@ -3,9 +3,7 @@ import * as express from 'express';
 import * as mongoose from 'mongoose';
 import * as bcrypt from 'bcryptjs';
 
-import '../models/user.model';
-
-const User = mongoose.model('User');
+import { User } from '../models/user.model';
 
 export const register = (
         req  : express.Request,
@@ -19,7 +17,8 @@ export const register = (
             password
         });
         user.save(
-            (error: mongoose.Error, document: mongoose.Document) => {
+            (error: Error, document: mongoose.Document) => {
+                if (error) return res.send(error.message);
                 res
                     .send(document);
             }

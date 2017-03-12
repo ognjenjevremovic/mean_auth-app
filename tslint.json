@@ -12,7 +12,7 @@
         "no-duplicate-super": true,
         "no-duplicate-variable": true,
         "no-empty": true,
-        "no-invalid-this": true,
+        "no-invalid-this": false,
         "no-unused-variable": [
             true,
             "react",
