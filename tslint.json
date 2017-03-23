@@ -12,7 +12,7 @@
         "no-duplicate-super": true,
         "no-duplicate-variable": true,
         "no-empty": true,
-        "no-invalid-this": false,
+        "no-invalid-this": true,
         "no-unused-variable": [
             true,
             "react",
@@ -31,7 +31,7 @@
             true,
             "spaces"
         ],
-        "no-require-imports": false,
+        "no-require-imports": true,
         "prefer-const": true,
         "trailing-comma": [
             true,
@@ -82,11 +82,11 @@
         ],
         "max-file-line-count": [
             true,
-            280     //  general rule of thumb for code maintainability
+            280
         ],
         "max-line-length": [
             true,
-            160     //  no lengthy ternaries 
+            160
         ],
         "align": [
             true,

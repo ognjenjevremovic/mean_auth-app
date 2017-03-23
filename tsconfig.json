@@ -2,20 +2,20 @@
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",
+        "moduleResolution": "node",
         "noImplicitAny": true,
         "suppressImplicitAnyIndexErrors": true,
         "removeComments": true,
         "pretty": true,
         "sourceMap": true,
+        "experimentalDecorators": true,
         "lib": [
             "es5",
             "es6",
-            "es7"
-        ],
-        "outDir": "./dist"
+            "dom"
+        ]
     },
     "exclude": [
-        "node_modules/",
-        "src/client"
+        "node_modules/"
     ]
 }
