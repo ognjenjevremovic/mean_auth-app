@@ -1,5 +1,6 @@
 //  Dependancie
 import * as mongoose from 'mongoose';
+import logger from '../util/logger';
 
 
 //  Mongoose promise promise library
@@ -35,10 +36,10 @@ class Database {
         //  Store the connection
         this.connection = mongoose.connection;
         this.connection.on('connect', () => {
-            console.log(`Successfuly connected to the database!`);
+            logger.log('blue', `Successfuly connected to the database!`);
         });
         this.connection.on('error', (err: mongoose.Error) => {
-            console.log(`
+            logger.log('red', `
                 Error connecting to the database :
                 ${err.message}
             `);
@@ -53,7 +54,7 @@ class Database {
      */
     close(): void {
         this.connection.close(() => {
-            console.log(`
+            logger.log('blue', `
                 Database connection disconnected, through app termination
             `);
             process.exit(0);
