@@ -6,6 +6,7 @@ import * as serveFavicon from 'serve-favicon';
 
 import './config';
 import database from './lib/database';
+import logger from './util/logger';
 
 
 //  Environment variables
@@ -42,7 +43,7 @@ class Server {
      */
     start(): void {
         app.listen(PORT, () => {
-            console.log(`
+            logger.log('blue', `
                 Starting. . .
                 Server listening on the port ${PORT}
 
@@ -79,7 +80,7 @@ class Server {
      */
     initDbConnection(): void {
         database.open();
-        console.log('Database connection open');
+        logger.log('blue', 'Database connection open');
     }
 }
 
