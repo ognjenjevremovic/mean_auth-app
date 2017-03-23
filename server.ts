@@ -5,6 +5,7 @@ import * as bodyParser from 'body-parser';
 import * as serveFavicon from 'serve-favicon';
 
 import './config';
+import database from './lib/database';
 
 
 //  Environment variables
@@ -27,6 +28,7 @@ class Server {
 
     constructor() {
         this.registerMiddlewares();
+        this.initDbConnection();
         this.start();
     }
 
@@ -67,6 +69,17 @@ class Server {
 
         //  Favicon serve
         // app.use(serveFavicon(path.join(__dirname, 'public', 'favicon.png')));
+    }
+
+    /**
+     * @description
+     *  Connect to the database instance
+     *
+     * @memberOf Server
+     */
+    initDbConnection(): void {
+        database.open();
+        console.log('Database connection open');
     }
 }
 
