@@ -3,8 +3,13 @@ import * as mongoose from 'mongoose';
 
 import {
     readDecorator,
-    IFindMany
+    IFindMany,
+    Read
 } from './read';
+import {
+    writeDecorator,
+    Write
+} from './write';
 
 
 /**
@@ -17,18 +22,22 @@ import {
  * @abstract
  * @class BaseDAO
  */
-@readDecorator()
-export abstract class BaseDAO {
+@readDecorator
+@writeDecorator
+export class BaseDAO<T extends mongoose.Document> implements Read<T>, Write<T> {
 
     constructor(
-        protected model : mongoose.Model<mongoose.Document>
+        public model : mongoose.Model<T>
     ) { }
 
     //  Read methods
     public findById : (id: string)    => Promise<mongoose.Document>;
-    public find     : (query: Object) => Promise<IFindMany>;
-    public findAll  : () => Promise<IFindMany>;
+    public find     : (query: Object) => Promise<IFindMany<T>>;
+    public findAll  : () => Promise<IFindMany<T>>;
     public findFrom : (
         startAt: number,
-        limitTo: number) => Promise<IFindMany>;
+        limitTo: number) => Promise<IFindMany<T>>;
+
+    //  Write method
+    public insertOne : (document: Object) => Promise<mongoose.Document>;
 }

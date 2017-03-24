@@ -12,10 +12,10 @@ import { model as customerModel, ICustomerModel } from '../../models/customer/mo
  *
  * @class CustomerDAO
  */
-class CustomerDAO extends BaseDAO {
+class CustomerDAO extends BaseDAO<ICustomerModel> {
 
     constructor(
-        protected model : mongoose.Model<ICustomerModel>;
+        public model : mongoose.Model<ICustomerModel>
     ) {
         super(model);
     }

@@ -1,8 +1,8 @@
 // Dependancie
 import * as mongoose from 'mongoose';
 
-import { BaseModel } from '../base';
-import { userSchema } from './schema';
+import { BaseModel } from '../baseModel';
+import userSchema from './schema';
 
 
 /**
@@ -27,11 +27,11 @@ export interface IUserModel extends mongoose.Document {
  * @class UserModel
  * @extends {BaseModel}
  */
-class User extends BaseModel {
+class User extends BaseModel<mongoose.Model<IUserModel>> {
     public model     : mongoose.Model<IUserModel>;
 
     constructor(
-        private userSchema  :   mongoose.SchemaDefinition,
+        protected schema    :   mongoose.Schema,
         private modelName   :   string,
         private collection? :   string
     ) {
@@ -40,5 +40,5 @@ class User extends BaseModel {
 }
 
 
-//  Export the instance of UserModel
+//  Export the instance of User model
 export const { model } = new User(userSchema, 'User', 'users');

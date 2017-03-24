@@ -11,9 +11,9 @@ import { BaseDAO } from './base';
  *
  * @interface IFindMany
  */
-export interface IFindMany {
+export interface IFindMany<T> {
     count       : number;
-    documents   : mongoose.Document[];
+    documents   : T[];
 }
 
 
@@ -25,10 +25,10 @@ export interface IFindMany {
  *
  * @class Read
  */
-export abstract class Read {
+export abstract class Read<T extends mongoose.Document> {
 
     constructor(
-        protected model : mongoose.Model<mongoose.Document>
+        public model : mongoose.Model<T>
     ) { }
 
     /**
@@ -41,8 +41,8 @@ export abstract class Read {
      */
     public async findById(
         id  : string
-    ): Promise<mongoose.Document> {
-        const document: mongoose.Document = await this.model.findById(id);
+    ): Promise<T> {
+        const document: T = await this.model.findById(id) as T;
 
         return document;
     }
@@ -57,9 +57,9 @@ export abstract class Read {
      */
     public async find(
         query : Object
-    ): Promise<IFindMany> {
+    ): Promise<IFindMany<T>> {
         const documentNum   : number = await this.model.count(query);
-        const documents     : mongoose.Document[] = await this.model.find(query).exec();
+        const documents     : T[] = await this.model.find(query).exec();
 
         return { count: documentNum, documents };
     }
@@ -71,9 +71,9 @@ export abstract class Read {
      * @returns {Promise<IFindMany>}
      * @memberOf Read
      */
-    public async findAll(): Promise<IFindMany> {
+    public async findAll(): Promise<IFindMany<T>> {
         const documentNum: number = await this.model.count({});
-        const documents: mongoose.Document[] = await this.model.find({}).exec();
+        const documents: T[] = await this.model.find({}).exec();
 
         return { count: documentNum, documents };
     }
@@ -91,8 +91,8 @@ export abstract class Read {
     public async findFrom(
         startAt  :   number,
         limitTo  :   number = 10
-    ): Promise<IFindMany> {
-        const documents = await this.model.find({}).skip(startAt);
+    ): Promise<IFindMany<T>> {
+        const documents : T[] = await this.model.find({}).skip(startAt);
 
         return { count: documents.length, documents };
     }
@@ -106,11 +106,11 @@ export abstract class Read {
  * @export
  * @returns
  */
-export function readDecorator() {
-    return (target: typeof BaseDAO) => {
-        target.prototype.find       = Read.prototype.find;
-        target.prototype.findById   = Read.prototype.findById;
-        target.prototype.findAll    = Read.prototype.findAll;
-        target.prototype.findFrom   = Read.prototype.findFrom;
+export function readDecorator<T extends {new(...args:any[]):{}}>(Constructor: T) {
+    return class extends Constructor {
+        find = Read.prototype.find;
+        findAll = Read.prototype.findAll;
+        findById = Read.prototype.findById;
+        findFrom = Read.prototype.findFrom;
     };
 }

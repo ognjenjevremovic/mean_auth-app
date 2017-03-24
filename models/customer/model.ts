@@ -1,8 +1,8 @@
 //  Dependancies
 import * as mongoose from 'mongoose';
 
-import { BaseModel } from '../base';
-import { customerSchema } from './schema';
+import { BaseModel } from '../baseModel';
+import customerSchema from './schema';
 
 
 /**
@@ -29,18 +29,18 @@ export interface ICustomerModel extends mongoose.Document {
  * @class Customer
  * @extends {BaseModel}
  */
-class Customer extends BaseModel {
+class Customer extends BaseModel<mongoose.Model<ICustomerModel>> {
     public model        : mongoose.Model<ICustomerModel>;
 
     constructor(
-        private cutomerSchema   : mongoose.SchemaDefinition,
+        private cutomerSchema   : mongoose.Schema,
         private modelName       : string,
         private collection?     : string
     ) {
-        super(cutomerSchema, modelName, collection);
+        super(customerSchema, modelName, collection);
     }
 }
 
 
-//  Export the instance of the CustomerController
+//  Export the instance of the Customer model
 export const { model } = new Customer(customerSchema, 'Customer', 'customers');

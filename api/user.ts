@@ -15,6 +15,7 @@ class UserController {
 
     constructor() {
         this.router.get('/users', this.getUsers);
+        this.router.post('/user', this.addUser);
     }
 
     /**
@@ -29,11 +30,19 @@ class UserController {
      * @memberOf UserController
      */
     private async getUsers(
-        req :   express.Request,
-        res :   express.Response
+        req : express.Request,
+        res : express.Response
     ): Promise<void> {
         res
             .json(await userDAO.findAll());
+    }
+
+    private async addUser(
+        req : express.Request,
+        res : express.Response
+    ) : Promise<void> {
+        res
+            .json(await userDAO.insertOne(req.body));
     }
 }
 

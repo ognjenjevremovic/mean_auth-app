@@ -13,10 +13,10 @@ import { model as userModel, IUserModel } from '../../models/user/model';
  * @class UserDAO
  * @extends {BaseDAO}
  */
-class UserDAO extends BaseDAO {
+class UserDAO extends BaseDAO<IUserModel> {
 
     constructor(
-        protected model : mongoose.Model<IUserModel>
+        public model : mongoose.Model<IUserModel>
     ) {
         super(model);
     }
