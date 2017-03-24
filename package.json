@@ -2,9 +2,11 @@
   "name": "mean_auth-app",
   "version": "0.0.1",
   "description": "MEAN 2 (MongoDB, Express, Angular 2, NodeJS) application, with CRUD and User authentication",
-  "main": "dist/server.js",
+  "main": "server.js",
   "scripts": {
-    "start": "nodemon"
+    "start": "tsc && concurrently \"npm run tsc:w\" \"nodemon\"",
+    "tsc": "tsc",
+    "tsc:w": "tsc -w"
   },
   "repository": {
     "type": "git",
@@ -54,6 +56,7 @@
     "@types/passport": "^0.3.3",
     "@types/passport-jwt": "^2.0.19",
     "@types/serve-favicon": "^2.2.28",
+    "concurrently": "^3.4.0",
     "typescript": "^2.2.1"
   }
 }

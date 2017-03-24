@@ -1,9 +1,6 @@
 //  Dependancies
 import * as mongoose from 'mongoose';
 
-//  Schema
-const { Schema } = mongoose;
-
 
 //  Customer Schema
 export const customerSchema : mongoose.SchemaDefinition = {
