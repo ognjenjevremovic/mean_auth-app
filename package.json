@@ -1,10 +1,20 @@
 {
   "name": "mean_auth-app",
   "version": "0.0.1",
-  "description": "MEAN 2 (MongoDB, Express, Angular 2, NodeJS) application, with CRUD and User authentication",
+  "description": "MEAN 2 (MongoDB, Express, Angular 2, NodeJS) application, with CRUD and User authentication written in TypeScript",
   "main": "server.js",
   "scripts": {
     "start": "tsc && concurrently \"npm run tsc:w\" \"nodemon\"",
+    "clear:prod": "concurrently \"npm run remove:api\" \"npm run remove:config\" \"npm run remove:dao\" \"npm run remove:lib\" \"npm run remove:models\" \"npm run remove:util\" \"npm run remove:server\"",
+
+    "remove:api": "rm ./api/*.js ./api/*.js.map",
+    "remove:config": "rm ./config/*.js ./config/*.js.map",
+    "remove:dao": "rm ./DAO/*.js ./DAO/*.js.map",
+    "remove:lib": "rm ./lib/*.js ./lib/*.js.map",
+    "remove:models": "rm ./models/*.js ./models/*.js.map",
+    "remove:util": "rm ./util/*.js ./util/*.js.map",
+    "remove:server": "rm ./server.js ./server.js.map",
+    
     "tsc": "tsc",
     "tsc:w": "tsc -w"
   },
@@ -27,10 +37,14 @@
     "@angular/platform-browser": "^2.4.10",
     "@angular/platform-browser-dynamic": "^2.4.10",
     "@angular/router": "^3.4.10",
+    "core-js": "^2.4.1",
+    "rxjs": "^5.2.0",
+    "systemjs": "^0.20.10",
+    "zone.js": "0.7.8",
+
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.17.1",
     "chalk": "^1.1.3",
-    "core-js": "^2.4.1",
     "dotenv": "^4.0.0",
     "express": "^4.15.2",
     "mongoose": "^4.8.6",
@@ -38,10 +52,7 @@
     "passport": "^0.3.2",
     "passport-jwt": "^2.2.1",
     "pretty-easy-data-types": "^1.0.3",
-    "rxjs": "^5.2.0",
-    "serve-favicon": "^2.4.1",
-    "systemjs": "^0.20.10",
-    "zone.js": "0.7.8"
+    "serve-favicon": "^2.4.1"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.0",
