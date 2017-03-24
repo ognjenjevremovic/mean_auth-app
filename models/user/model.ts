@@ -16,7 +16,13 @@ export interface IUserModel extends mongoose.Document {
     username    :   string;
     email       :   string;
     password    :   string;
-    dateCreated :   Date;
+    dateCreated :   {
+        timestamp : number;
+        human     : {
+            date : string;
+            time : string;
+        };
+    };
 }
 
 

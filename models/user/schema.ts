@@ -4,6 +4,7 @@ import * as bcrypt from 'bcryptjs';
 
 import { BaseSchema } from '../baseSchema';
 import { userSchemaDefinition } from './definition';
+import { IUserModel } from './model';
 
 
 /**
@@ -27,18 +28,28 @@ const userSchema : UserSchema = new UserSchema(userSchemaDefinition);
 
 //  Register pre 'save' hook
 //  for adding date created field
-userSchema.pre('validate', function (next) {
-    console.log('validate hook');
-    this.dateCreated = new Date();
+userSchema.pre('validate', function(next) {
+    const user : IUserModel = this;
+    const date : Date = new Date();
+
+    user.dateCreated = {
+        timestamp : date.getTime(),
+        human     : {
+            date : `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`,
+            time : `${date.getHours()}:${date.getMinutes().toString}:${date.getSeconds()}`
+        }
+    };
+
     next();
 });
 
 
 //  Register pre 'save' hook
 //  for hashing the password
-userSchema.registerHook('save', async function (next) {
+userSchema.registerHook('save', async function(next) {
+    const user : IUserModel = this;
     const salt : string = await bcrypt.genSalt();
-    this.password = await bcrypt.hash(this.password, salt);
+    user.password = await bcrypt.hash(user.password, salt);
     next();
 });
 

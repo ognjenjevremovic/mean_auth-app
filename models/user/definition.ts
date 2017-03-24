@@ -23,7 +23,12 @@ export const userSchemaDefinition: mongoose.SchemaDefinition = {
         trim    :   true
     },
     dateCreated : {
-        type    :   String,
-        required:   true
+        timestamp   : Number,
+        human       : {
+            date  : String,
+            time  : String
+        }
     }
 };
+
+
