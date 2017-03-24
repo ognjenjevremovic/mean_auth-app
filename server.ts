@@ -7,6 +7,7 @@ import * as serveFavicon from 'serve-favicon';
 import './config';
 import database from './lib/database';
 import logger from './util/logger';
+import customerController from './api/customerController';
 
 
 //  Environment variables
@@ -30,6 +31,7 @@ class Server {
     constructor() {
         this.registerMiddlewares();
         this.initDbConnection();
+        this.registerRoutes();
         this.start();
     }
 
@@ -81,6 +83,17 @@ class Server {
     initDbConnection(): void {
         database.open();
         logger.log('blue', 'Database connection open');
+    }
+
+    /**
+     * @description
+     *  Register the application routes
+     *
+     * @memberOf Server
+     */
+    registerRoutes(): void {
+        //  API routes
+        app.use('/api', customerController.router);
     }
 }
 
