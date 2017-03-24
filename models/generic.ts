@@ -33,7 +33,7 @@ export abstract class GenericModel {
      *
      * @memberOf GenericModel
      */
-    defineSchema(
+    protected defineSchema(
         schemaDefinition : mongoose.SchemaDefinition
     ): void {
         this.schema = new Schema(schemaDefinition);
@@ -46,7 +46,7 @@ export abstract class GenericModel {
      *
      * @memberOf GenericModel
      */
-    registerModel(
+    protected registerModel(
         modelName   : string,
         collection? : string
     ): void {

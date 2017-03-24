@@ -9,9 +9,9 @@
 
     "remove:api": "rm ./api/*.js ./api/*.js.map",
     "remove:config": "rm ./config/*.js ./config/*.js.map",
-    "remove:dao": "rm ./DAO/*.js ./DAO/*.js.map",
+    "remove:dao": "rm ./DAO/*.js ./DAO/*.js.map ./DAO/**/*.js ./DAO/**/*.js.map",
     "remove:lib": "rm ./lib/*.js ./lib/*.js.map",
-    "remove:models": "rm ./models/*.js ./models/*.js.map",
+    "remove:models": "rm ./models/*.js ./models/*.js.map ./models/**/*.js ./models/**/*.js.map",
     "remove:util": "rm ./util/*.js ./util/*.js.map",
     "remove:server": "rm ./server.js ./server.js.map",
     

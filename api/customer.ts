@@ -1,17 +1,17 @@
 //  Dependancie
 import * as express from 'express';
 
-import customerDAO from '../DAO/customersDAO';
+import customerDAO from '../DAO/customer/customer';
 
 
 /**
  * @description
- *  Defining customer controller routes
+ *  Customer controller (routes && logic)
  *
  * @class CustomerController
  */
 class CustomerController {
-    router: express.Router = express.Router();
+    public router: express.Router = express.Router();
 
     constructor() {
         this.router.get('/customers', this.getCustomers);
@@ -19,15 +19,16 @@ class CustomerController {
 
     /**
      * @description
-     *  Retrieve all documents from the collection
-     *  associated with the Customers model
+     *  Retrieve all the records from
+     *  the 'customers' collection
      *
+     * @private
      * @param {express.Request} req
      * @param {express.Response} res
      * @returns {Promise<void>}
      * @memberOf CustomerController
      */
-    async getCustomers(
+    private async getCustomers(
         req : express.Request,
         res : express.Response
     ): Promise<void> {

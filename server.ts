@@ -7,7 +7,8 @@ import * as serveFavicon from 'serve-favicon';
 import './config';
 import database from './lib/database';
 import logger from './util/logger';
-import customerController from './api/customerController';
+import customerController from './api/customer';
+import userController from './api/user';
 
 
 //  Environment variables
@@ -93,7 +94,7 @@ class Server {
      */
     registerRoutes(): void {
         //  API routes
-        app.use('/api', customerController.router);
+        app.use('/api', customerController.router, userController.router);
     }
 }
 

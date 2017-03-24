@@ -9,6 +9,7 @@ import * as dotenv from 'dotenv';
  * @class Config
  */
 class Config {
+
     constructor() {
         dotenv.config();
     }
