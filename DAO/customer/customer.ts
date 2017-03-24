@@ -1,8 +1,8 @@
 //  Dependancie
 import * as mongoose from 'mongoose';
 
-import { GenericDAO } from '../generic';
-import customer from '../../models/customer/model';
+import { BaseDAO } from '../base';
+import { model as customerModel, ICustomerModel } from '../../models/customer/model';
 
 
 /**
@@ -12,10 +12,10 @@ import customer from '../../models/customer/model';
  *
  * @class CustomerDAO
  */
-class CustomerDAO extends GenericDAO {
+class CustomerDAO extends BaseDAO {
 
     constructor(
-        protected model : mongoose.Model<mongoose.Document>
+        protected model : mongoose.Model<ICustomerModel>;
     ) {
         super(model);
     }
@@ -23,4 +23,4 @@ class CustomerDAO extends GenericDAO {
 
 
 //  Export the new instance of CustomerDAO
-export default new CustomerDAO(customer);
+export default new CustomerDAO(customerModel);

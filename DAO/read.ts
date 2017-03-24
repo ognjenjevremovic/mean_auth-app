@@ -1,6 +1,7 @@
 //  Dependancie
 import * as mongoose from 'mongoose';
-import { GenericDAO } from './generic';
+
+import { BaseDAO } from './base';
 
 
 /**
@@ -15,22 +16,6 @@ export interface IFindMany {
     documents   : mongoose.Document[];
 }
 
-/**
- * @description
- *  Generic Read class
- *  read operation methods
- *
- * @interface IRead
- */
-interface IRead {
-    findById(id : string)   : Promise<mongoose.Document>;
-    find(query : Object)    : Promise<IFindMany>;
-    findAll()               : Promise<IFindMany>;
-    findFrom(
-        startAt: number,
-        limitTo: number)    : Promise<IFindMany>;
-}
-
 
 /**
  * @description
@@ -40,7 +25,7 @@ interface IRead {
  *
  * @class Read
  */
-export abstract class Read implements IRead {
+export abstract class Read {
 
     constructor(
         protected model : mongoose.Model<mongoose.Document>
@@ -122,7 +107,7 @@ export abstract class Read implements IRead {
  * @returns
  */
 export function readDecorator() {
-    return (target: typeof GenericDAO) => {
+    return (target: typeof BaseDAO) => {
         target.prototype.find       = Read.prototype.find;
         target.prototype.findById   = Read.prototype.findById;
         target.prototype.findAll    = Read.prototype.findAll;

@@ -12,9 +12,9 @@ const { Schema } = mongoose;
  *
  * @export
  * @abstract
- * @class GenericModel
+ * @class BaseModel
  */
-export abstract class GenericModel {
+export abstract class BaseModel {
     protected schema : mongoose.Schema;
     public    model  : mongoose.Model<mongoose.Document>;
 
@@ -31,7 +31,7 @@ export abstract class GenericModel {
      * @description
      *  Defines the Schema for the model
      *
-     * @memberOf GenericModel
+     * @memberOf BaseModel
      */
     protected defineSchema(
         schemaDefinition : mongoose.SchemaDefinition
@@ -44,7 +44,7 @@ export abstract class GenericModel {
      *  Register the model,
      *  with the mongoose
      *
-     * @memberOf GenericModel
+     * @memberOf BaseModel
      */
     protected registerModel(
         modelName   : string,

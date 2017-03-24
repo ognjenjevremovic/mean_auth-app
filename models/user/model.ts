@@ -1,8 +1,23 @@
 // Dependancie
 import * as mongoose from 'mongoose';
 
-import { GenericModel } from '../generic';
+import { BaseModel } from '../base';
 import { userSchema } from './schema';
+
+
+/**
+ * @description
+ *  User record interface
+ *
+ * @interface IUserModel
+ * @extends {mongoose.Document}
+ */
+export interface IUserModel extends mongoose.Document {
+    username    :   string;
+    email       :   string;
+    password    :   string;
+    dateCreated :   Date;
+}
 
 
 /**
@@ -10,11 +25,10 @@ import { userSchema } from './schema';
  *  User Model Class
  *
  * @class UserModel
- * @extends {GenericModel}
+ * @extends {BaseModel}
  */
-class User extends GenericModel {
-    protected schema : mongoose.Schema;
-    public model     : mongoose.Model<mongoose.Document>;
+class User extends BaseModel {
+    public model     : mongoose.Model<IUserModel>;
 
     constructor(
         private userSchema  :   mongoose.SchemaDefinition,
@@ -27,5 +41,4 @@ class User extends GenericModel {
 
 
 //  Export the instance of UserModel
-const { model: user } = new User(userSchema, 'User', 'users');
-export default user;
+export const { model } = new User(userSchema, 'User', 'users');

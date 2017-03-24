@@ -1,8 +1,25 @@
 //  Dependancies
 import * as mongoose from 'mongoose';
 
-import { GenericModel } from '../generic';
+import { BaseModel } from '../base';
 import { customerSchema } from './schema';
+
+
+/**
+ * @description
+ *  Customer record interface
+ *
+ * @interface ICustomerModel
+ * @extends {mongoose.Document}
+ */
+export interface ICustomerModel extends mongoose.Document {
+    name    : {
+        first : string;
+        last  : string;
+    };
+    age?    : number;
+    email   : string;
+}
 
 
 /**
@@ -10,11 +27,10 @@ import { customerSchema } from './schema';
  *  Customer Model Class
  *
  * @class Customer
- * @extends {GenericModel}
+ * @extends {BaseModel}
  */
-class Customer extends GenericModel {
-    protected schema    : mongoose.Schema;
-    public model        : mongoose.Model<mongoose.Document>;
+class Customer extends BaseModel {
+    public model        : mongoose.Model<ICustomerModel>;
 
     constructor(
         private cutomerSchema   : mongoose.SchemaDefinition,
@@ -27,5 +43,4 @@ class Customer extends GenericModel {
 
 
 //  Export the instance of the CustomerController
-const { model: customer } = new Customer(customerSchema, 'Customer', 'customers');
-export default customer;
+export const { model } = new Customer(customerSchema, 'Customer', 'customers');

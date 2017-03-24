@@ -1,8 +1,8 @@
 //  Dependancie
 import * as mongoose from 'mongoose';
 
-import { GenericDAO } from '../generic';
-import user from '../../models/user/model';
+import { BaseDAO } from '../base';
+import { model as userModel, IUserModel } from '../../models/user/model';
 
 
 /**
@@ -11,12 +11,12 @@ import user from '../../models/user/model';
  *  for CRUD operations over users collection
  *
  * @class UserDAO
- * @extends {GenericDAO}
+ * @extends {BaseDAO}
  */
-class UserDAO extends GenericDAO {
+class UserDAO extends BaseDAO {
 
     constructor(
-        protected model : mongoose.Model<mongoose.Document>
+        protected model : mongoose.Model<IUserModel>
     ) {
         super(model);
     }
@@ -24,4 +24,4 @@ class UserDAO extends GenericDAO {
 
 
 //  Export the instance of UserDAO
-export default new UserDAO(user);
+export default new UserDAO(userModel);

@@ -4,7 +4,7 @@ import * as mongoose from 'mongoose';
 import {
     readDecorator,
     IFindMany
-} from './get';
+} from './read';
 
 
 /**
@@ -15,10 +15,10 @@ import {
  *
  * @export
  * @abstract
- * @class GenericDAO
+ * @class BaseDAO
  */
 @readDecorator()
-export abstract class GenericDAO {
+export abstract class BaseDAO {
 
     constructor(
         protected model : mongoose.Model<mongoose.Document>
